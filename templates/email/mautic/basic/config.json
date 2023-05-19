@@ -1,0 +1,7 @@
+{
+  "name": "Basic Kyte",
+  "author": "Kyte",
+  "authorUrl": "https://mautic.org",
+  "builder": ["legacy", "email"],
+  "features": "email"
+}

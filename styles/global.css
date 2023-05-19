@@ -1,0 +1,126 @@
+/* Basic callout popup */
+
+:root {
+  --main-bg-color: #fff;
+  --secondary-bg-color: #f7f7f8;
+  --main-text-color: #363f4d;
+  --secondary-text-color: #2dd1ac;
+  
+}
+.basic-callout {
+position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 99999;
+    overflow: hidden;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.content-modal {
+background-color: #FFFFFF;
+border: 2px solid #363f4d;
+border-radius: 12px;
+padding: 30px 10px 20px 10px;
+overflow: auto;
+position: relative;
+max-width: 420px;
+}
+.basic-callout-header {
+  padding: 0px 10px 0px 10px;
+}
+.basic-callout-img {
+  margin: 10px 0px 10px 0px;
+  height: auto;
+  width: 100%;
+  border-radius: 12px;
+}
+.basic-callout-form {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.basic-callout-form.active {
+  display: none;
+}
+.basic-callout-message {
+  color: #363f4d;
+  display: none;
+}
+.basic-callout-message.active {
+  display: block;
+}
+.basic-callout-close {
+  background-color: #F7f7f8;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+.basic-card {
+  background-color: #DDF7F2;
+  border-radius: 12px;
+  margin: 10px 0px 10px 0px;
+  padding: 20px 10px 10px 10px;
+  height: 150px ;
+}
+
+.highlight {
+  display: inline;
+  background: #2dd1ac;
+  box-shadow: 0.2em 0 0 #2dd1ac, 0.2em 0 0 #2dd1ac;
+}
+/* Basic lead form */
+.basic-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  height: auto;
+  padding: 10px;
+  position: static;
+  overflow: hidden; 
+}
+.basic-form-home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  height: auto;
+  padding: 10px;
+  position: static;
+  overflow: hidden;
+  color: #ccc;
+}
+.basic-form-field {
+  width: 90%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
+}
+.basic-form-button {
+  width: 90%;
+  height: 50px;
+  background-color: #2dd1ac;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin: 20px 10px 20px 10px;
+  padding: 10px 15px 10px 15px;
+  font-size: 18px;
+  font-weight: 500;
+}

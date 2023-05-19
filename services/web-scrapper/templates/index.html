@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Scraper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Scraper</h1>
+
+    <form id="scrape-form">
+        <label for="sitemap-url">Sitemap URL:</label>
+        <input type="text" id="sitemap-url" name="sitemap-url" required>
+
+        <label for="exclude-ids">Exclude IDs (comma-separated):</label>
+        <textarea id="exclude-ids" name="exclude-ids"></textarea>
+
+        <label for="exclude-classes">Exclude Classes (comma-separated):</label>
+        <textarea id="exclude-classes" name="exclude-classes"></textarea>
+
+        <button type="submit">Scrape</button>
+    </form>
+
+    <div id="loading" class="loading">
+        <p>Loading...</p>
+    </div>
+
+    <div id="results" class="hidden">
+        <h2>Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Meta Title</th>
+                    <th>Meta Description</th>
+                    <th>Body</th>
+                </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+        </table>
+
+        <a id="download-button" class="hidden" href="#" download>Download JSON</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(function() {
+    // Listen for form submission
+    $('#scrape-form').on('submit', function(event) {
+        event.preventDefault();
+
+        // Hide existing error messages
+        $('#error').addClass('hidden');
+
+        // Show loading spinner
+        $('#loading').removeClass('hidden');
+
+        // Disable form inputs and submit button
+        $('#scrape-form input, #scrape-form button').prop('disabled', true);
+
+        // Clear previous results
+        $('#results-body').empty();
+
+        // Fetch the form data
+        var formData = {
+            'sitemap-url': $('#sitemap-url').val(),
+            'exclude-ids': $('#exclude-ids').val(),
+            'exclude-classes': $('#exclude-classes').val()
+        };
+
+        // Send AJAX request to the scraper endpoint
+        $.ajax({
+            method: 'POST',
+            url: '/scrape',
+            data: JSON.stringify(formData),
+            contentType: 'application/json'
+        }).done(function(data) {
+            // Hide loading spinner
+            $('#loading').addClass('hidden');
+
+            // Enable form inputs and submit button
+            $('#scrape-form input, #scrape-form button').prop('disabled', false);
+
+            // Display the results table
+            $('#results').removeClass('hidden');
+
+            // Add each row to the table
+            var tbody = $('#results-body');
+            data.forEach(function(result) {
+                var row = $('<tr>');
+                row.append($('<td>').text(result.url));
+                row.append($('<td>').text(result.meta_title || ''));
+                row.append($('<td>').text(result.meta_description || ''));
+                row.append($('<td>').text(result.body || ''));
+                tbody.append(row);
+            });
+
+            // Set the download link href attribute to the JSON file URL
+            var downloadLink = $('#download-button');
+            downloadLink.attr('href', '/download?file=metadata.json');
+            downloadLink.removeClass('hidden');
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // Hide loading spinner
+            $('#loading').addClass('hidden');
+
+            // Enable form inputs and submit button
+            $('#scrape-form input, #scrape-form button').prop('disabled', false);
+
+            // Display the error message
+            $('#error').removeClass('hidden');
+        });
+    });
+
+    // Listen for download button click
+    $('#download-button').on('click', function(event) {
+        event.preventDefault();
+
+        // Send a GET request to the download URL
+        window.location.href = $(this).attr('href');
+    });
+});
+</script>
+</body>
+</html>
