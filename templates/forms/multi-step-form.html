@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="/styles/forms.css">
+
+<form class="lead-form" id="LeadForm" data-steps="3" method="post"
+  action="https://kyte-api-gateway.azure-api.net/get-kyte-id">
+  
+  <!--REDIRECT URL-->
+  <input type="hidden" name="_redir"
+    value="https://kyteapp.page.link/?link=https://web.kyteapp.com/login&apn=com.kyte&ibi=com.kytepos&isi=1345983058&pt=120346822&mt=8">
+
+  <!--START OF THE ATTRIBUTION FIELDS-->
+
+  <!--Pseudo Kyte Identification-->
+  <input type="hidden" name="pkid">
+  <!--Kyte ID user identification-->
+  <input type="hidden" name="kid">
+  <!--Google Analytics general user identification-->
+  <input type="hidden" name="cid">
+  <!--Our own user identification-->
+  <input type="hidden" name="aid">
+  <!--facebook Ads user identification-->
+  <input type="hidden" name="fbclid">
+  <!--Google Ads user identification-->
+  <input type="hidden" name="gclid">
+  <!--Origin i.e. google, facebook, etc.-->
+  <input type="hidden" name="utm_source">
+  <!--Medium i.e. cpc, email, social etc.-->
+  <input type="hidden" name="utm_medium">
+  <!--Campaign i.e. Black Friday etc.-->
+  <input type="hidden" name="utm_campaign">
+  <!--Creative or CTA identification i.e. Green dog picture or cta-hero-->
+  <input type="hidden" name="utm_content">
+  <!--Term used in Google Search-->
+  <input type="hidden" name="utm_term">
+  <!--who come to your domain from other sites-->
+  <input type="hidden" name="ref">
+  <input type="hidden" name="referrer">
+  <!--Google Ads campaign id-->
+  <input type="hidden" name="campaignid">
+  <!--Google Ads adgroups id-->
+  <input type="hidden" name="adgroupid">
+  <!--Ad-based keywords-->
+  <input type="hidden" name="keyword">
+  <!--Organic tracking i.e. google/organic-->
+  <input type="hidden" name="channel_flow">
+  <!--Bento form origin identification-->
+  <input type="hidden" name="event_lead" value="formqualifier_native_pt">
+  <!--END OF THE ATTRIBUTION FIELDS-->
+
+  <!--START OF FORM ITEMS-->
+  <div class="step step1">
+    <input name="email" type="email" class="field full-width" placeholder="Meu e-mail é..." required />
+  </div>
+  <div class="step step2">
+    <select name="30dayssalesrange" class="field full-width" required>
+      <option value="" disabled selected>Em média, quantos pedidos você recebe por mês?</option>
+      <option id="group0" value="group0">Ainda não estou vendendo</option>
+      <option id="group1" value="group1">Entre 1 e 30 pedidos</option>
+      <option id="group2" value="group2">Entre 31 e 200 pedidos</option>
+      <option id="group3" value="group3">Mais de 200 pedidos</option>
+    </select>
+  </div>
+
+  <div class="step step3">
+    <label>
+      <input name="opt-in" type="checkbox" class="fields" required>
+      Concordo com os <a href="https://www.kyte.com.br/termos-de-uso" target="_blank">Termos de Uso</a> e em receber
+      conteúdos de marketing (que posso cancelar a qualquer momento).
+    </label>
+  </div>
+
+  <div class="navigation">
+    <a class="btn btn-prev">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path fill="none" d="M0 0h24v24H0V0z" />
+        <path
+          d="M14.71 6.71c-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L10.83 12l3.88-3.88c.39-.39.38-1.03 0-1.41z" />
+      </svg>
+    </a>
+    <a class="btn btn-next full-width">Continuar</a>
+    <button class="btn btn-submit full-width">Explorar Kyte</button>
+  </div>
+</form>
+<!--END OF FORM ITEMS-->
+
+<script src="/scripts/multi-step-form.js"></script>
+<script>
+  initLeadForm('LeadForm', {
+    email: function (value) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-1]\d{2}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
+      return re.test(String(value));
+    }
+  })
+</script>
